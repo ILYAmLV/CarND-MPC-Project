@@ -13,6 +13,10 @@ class MPC {
   virtual ~MPC();
 
 // *********************** beginning \\// **************************
+ 
+// adapted from Udacity CarND MPC Quizzes
+// https://github.com/earlbread/CarND-MPC-Project
+ 
   vector<double> mpc_x_vals;
   vector<double> mpc_y_vals;
 // *************************** end //\\ ****************************
