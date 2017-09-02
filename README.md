@@ -60,3 +60,10 @@ double dt = 0.2;
 ```
 These parameters were selected by the method of trial and error. Timestep lenght lower than 10 produced unstable results as there is not enough data to accurately predict the path. Timestep lenght higher than 10 takes too much of the path into consideration and causes the vehicle to steer off the track. The timestep duration was selected based on the latency.
 
+### Polynomial Fitting and MPC Preprocessing
+
+The global coordinates used by the simulation are converted to vehicle's coordinates, this allows the model to fit a polynomial to the waypoints (`main.cpp` lines 115-120).
+
+### Model Predictive Control with Latency
+
+Latency is managed by setting the timestep duration `dt` to 0.2, additionally the model anticipates latency (`main.cpp` lines 136-140).
