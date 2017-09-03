@@ -126,22 +126,24 @@ int main() {
 
 		  // calculate the cross track error
 		  // adapted from Lesson 9: Mind the Line
-		  auto cte = polyeval(coeffs, 0);
+		  auto cte = polyeval(coeffs, 0); // because px=py=0
 
 		  // calculate the orientation error
 		  // adapted from Lesson 9: Mind the Line
-		  auto epsi = atan(coeffs[1]);
+		  auto epsi = -atan(coeffs[1]); // because px=psi=0
 
 		  // add latency
 		  double latency = 0.1;
 		  double Lf = 2.67;
-		  double x = v * cos(psi) * latency;
-		  psi = -v * delta / Lf * latency;
-		  v = v + a * latency;
+		  px = v * cos(psi) * latency;
+		  py = 0;
+		  psi = - v / Lf * delta * latency;
+		  cte = cte + v * sin(epsi) * latency;
+		  v += a * latency;
 
 		  // compute vehicle coordinates
 		  Eigen::VectorXd state_vector(6);
-		  state_vector << x, 0, psi, v, cte, epsi;
+		  state_vector << px, py, psi, v, cte, epsi;
 
 		  // compute the optimal trajectory 
 		  auto results = mpc.Solve(state_vector, coeffs);
